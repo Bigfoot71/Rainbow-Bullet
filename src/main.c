@@ -6,7 +6,7 @@
 #include "./particles.h"
 
 #ifdef PLATFORM_WEB
-    #include <emscripten/emscripten.h>
+#   include <emscripten/emscripten.h>
 #endif
 
 static int score;
@@ -55,6 +55,11 @@ int main(void)
 
     return 0;
 }
+
+#ifdef PLATFORM_WEB
+EMSCRIPTEN_KEEPALIVE void Pause(void) { emscripten_pause_main_loop(); }
+EMSCRIPTEN_KEEPALIVE void Resume(void) { emscripten_resume_main_loop(); }
+#endif
 
 static void UpdateAndDraw(void)
 {

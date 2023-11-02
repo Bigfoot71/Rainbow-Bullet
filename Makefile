@@ -6,10 +6,11 @@ SRC_FILES = $(SRC_DIR)/main.c $(SRC_DIR)/background.c $(SRC_DIR)/player.c $(SRC_
 TARGET = RainbowBullet
 RAYLIB_DIR = deps/raylib/src
 PLATFORM ?= PLATFORM_DESKTOP
+CFLAGS += -D$(PLATFORM)
 
 ifeq ($(PLATFORM), PLATFORM_WEB)
 	CC = emcc
-	CFLAGS += -s WASM=1 -s ASYNCIFY=1 -s USE_GLFW=3
+	CFLAGS += -s WASM=1 -s ASYNCIFY=1 -s USE_GLFW=3 -s EXPORTED_FUNCTIONS=_main,_Pause,_Resume -s EXPORTED_RUNTIME_METHODS=ccall
 	LDFLAGS += --shell-file shell.html
 endif
 
